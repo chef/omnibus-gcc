@@ -31,6 +31,9 @@ override :gcc, version: "5.3.0"
 # creates required build directories
 dependency 'preparation'
 
+dependency "binutils"
+dependency "make"
+
 dependency "gcc"
 
 exclude '\.git*'

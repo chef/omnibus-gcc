@@ -1,0 +1,77 @@
+driver:
+  name: vagrant
+  provider: vmware_fusion
+  customize:
+    numvcpus: 4
+    memsize: 8192
+  synced_folders:
+  #  - ['.', '/home/vagrant/omnibus-gcc']
+  #  - ['../omnibus-software', '/home/vagrant/omnibus-software']
+   - ['.', '/home/vagrant/omnibus-gcc', "create: true, type: :nfs"]
+   - ['../omnibus-software', '/home/vagrant/omnibus-software', "create: true, type: :nfs"]
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: latest
+
+platforms:
+  - name: centos-5.11
+    run_list: yum-epel::default
+  - name: centos-6.7
+    run_list: yum-epel::default
+  - name: centos-7.1
+    run_list: yum-epel::default
+  - name: debian-7.8
+    run_list: apt::default
+  - name: debian-8.1
+    run_list: apt::default
+  - name: freebsd-9.3
+    run_list:
+      - freebsd::portsnap
+      - freebsd::pkgng
+  - name: freebsd-10.1
+    run_list: freebsd::portsnap
+  - name: ubuntu-10.04
+    run_list: apt::default
+  - name: ubuntu-12.04
+    run_list: apt::default
+  - name: ubuntu-14.04
+    run_list: apt::default
+  #
+  # The following (private) boxes are shared via Atlas. Please note this
+  # requires adding your Atlas account to the `Chef` org and will
+  # require a `vagrant login`.
+  #
+  # The Mac OS X boxes are VMware only also. You can enable VMware Fusion
+  # as the default provider by copying `.kitchen.local.yml.vmware.example`
+  # over to `.kitchen.local.yml`.
+  #
+  - name: macosx-10.8
+    driver:
+      box: chef/macosx-10.8 # private
+  - name: macosx-10.9
+    driver:
+      box: chef/macosx-10.9 # private
+  - name: macosx-10.10
+    driver:
+      box: chef/macosx-10.10 # private
+  - name: macosx-10.11
+    driver:
+      box: chef/macosx-10.11 # private
+  - name: windows-server-2012r2-standard
+    driver:
+      box: chef/windows-server-2012r2-standard # private
+
+attribute_defaults: &attribute_defaults
+  build_user:          vagrant
+  build_user_group:    vagrant
+  build_user_password: vagrant
+
+suites:
+  - name: gcc
+    attributes:
+      omnibus:
+        <<: *attribute_defaults
+        install_dir: /opt/omnibus-gcc
+    run_list:
+      - omnibus::default
