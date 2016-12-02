@@ -23,16 +23,16 @@ install_dir    '/opt/omnibus-gcc'
 build_version "0.0.1"
 build_iteration 1
 
-override :gmp, version: "6.1.0"
-override :mpfr, version: "3.1.3"
-override :mpc, version: "1.0.3"
-override :gcc, version: "5.3.0"
+# override :gmp, version: "6.1.0"
+# override :mpfr, version: "3.1.3"
+# override :mpc, version: "1.0.3"
+# override :gcc, version: "5.3.0"
 
 # creates required build directories
 dependency 'preparation'
 
-dependency "binutils"
-dependency "make"
+# dependency "binutils"
+# dependency "make"
 
 dependency "gcc"
 
