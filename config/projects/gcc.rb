@@ -20,7 +20,7 @@ maintainer 'Chef Software, Inc. <maintainers@chef.io>'
 homepage   'http://www.chef.io'
 
 install_dir    '/opt/omnibus-gcc'
-build_version "0.0.1"
+build_version "0.0.2"
 build_iteration 1
 
 # override :gmp, version: "6.1.0"
