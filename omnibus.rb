@@ -30,19 +30,19 @@
 
 # Enable S3 asset caching
 # ------------------------------
-use_s3_caching true
+use_s3_caching false
 s3_access_key  ENV['AWS_ACCESS_KEY_ID']
 s3_secret_key  ENV['AWS_SECRET_ACCESS_KEY']
 s3_bucket      'opscode-omnibus-cache'
 
 # Customize compiler bits
 # ------------------------------
-build_retries 3
+build_retries 0
 fetcher_read_timeout 120
-workers 10
+workers 25
 
 # Load additional software
 # ------------------------------
 # software_gems ['omnibus-software', 'my-company-software']
 # local_software_dirs ['/path/to/local/software']
-append_timestamp false
+append_timestamp true

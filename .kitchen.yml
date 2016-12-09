@@ -1,0 +1,31 @@
+driver:
+  name: vagrant
+  provider: vmware_fusion
+  customize:
+    numvcpus: 2
+    memsize: 2048
+  synced_folders:
+   - ['.', '/home/vagrant/omnibus-gcc']
+   - ['../omnibus-software', '/home/vagrant/omnibus-software']
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: latest
+
+platforms:
+  - name: centos-6.7
+    run_list: yum-epel::default
+
+attribute_defaults: &attribute_defaults
+  build_user:          vagrant
+  build_user_group:    vagrant
+  build_user_password: vagrant
+
+suites:
+  - name: gcc
+    attributes:
+      omnibus:
+        <<: *attribute_defaults
+        install_dir: /opt/omnibus-gcc
+    run_list:
+      - omnibus::default
