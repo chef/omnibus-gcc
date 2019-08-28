@@ -1,20 +1,20 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-gem 'omnibus',          github: 'chef/omnibus'
-gem 'omnibus-software', github: 'chef/omnibus-software'
+gem "omnibus", git: "https://github.com/chef/omnibus", branch: "master"
+gem "omnibus-software", git: "https://github.com/chef/omnibus-software", branch: "master"
+gem "artifactory"
 
-# # pedump pessimistically pins multipart-post to a version from 2013 which makes
-# # bundler very unhappy. Remove this when upstream has merged zed-0xff/pedump#6 .
-# gem 'pedump', git: 'https://github.com/ksubrama/pedump.git', branch: 'patch-1'
-
-gem 'berkshelf', '~> 4.0'
+gem "pedump"
 
 group :development do
-  gem 'test-kitchen'
-  gem 'kitchen-vagrant', '~> 0.19.0'
-  gem 'winrm-transport', '~> 1.0'
+  # Use Berkshelf for resolving cookbook dependencies
+  gem "berkshelf", ">= 7.0"
 
-  # gem 'kitchen-ec2'
-  # gem 'winrm-transport',   '~> 1.0'
-  # gem 'winrm-fs'
+  # We pin here to the last release Ohai so prevent more current chef coming in
+  gem "ohai"
+
+  # Use Test Kitchen with Vagrant for converging the build environment
+  gem "test-kitchen", ">= 1.23"
+  gem "kitchen-vagrant", ">= 1.3.1"
+  gem "winrm-fs", "~> 1.0"
 end

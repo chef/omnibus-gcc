@@ -8,6 +8,6 @@
 # - if you are under 40, get peer review from your elders.
 #
 
-echo "Thank you for installing Build Essential!"
+echo "Thank you for installing GCC!"
 
 exit 0

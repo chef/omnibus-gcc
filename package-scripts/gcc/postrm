@@ -8,6 +8,6 @@
 # - if you are under 40, get peer review from your elders.
 #
 
-echo "Build Essential has been removed"
+echo "GCC has been removed"
 
 exit 0
