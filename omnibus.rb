@@ -40,5 +40,3 @@ s3_bucket      'opscode-omnibus-cache'
 build_retries 3
 fetcher_retries 3
 fetcher_read_timeout 120
-
-fatal_transitive_dependency_licensing_warnings true
