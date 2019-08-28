@@ -1,0 +1,46 @@
+# Documentation available at https://expeditor.chef.io/docs/getting-started/
+---
+# Use a friendly alias which will make promotions easier
+project:
+  alias: omnibus-gcc
+
+# The name of the product keys for this product (from mixlib-install)
+product_key:
+  - omnibus-gcc
+
+# Slack channel in Chef Software slack to send notifications about build failures, etc
+slack:
+  notify_channel:
+    - releng-notify
+
+pipelines:
+  - omnibus/release
+  - omnibus/adhoc:
+      definition: .expeditor/release.omnibus.yml
+      env:
+        - ADHOC: true
+
+# These actions are taken, in order they are specified, anytime a Pull Request is merged.
+merge_actions:
+  - built_in:bump_version:
+      ignore_labels:
+        - "Expeditor: Skip Version Bump"
+        - "Expeditor: Skip All"
+  - built_in:update_changelog:
+      ignore_labels:
+        - "Expeditor: Skip Changelog"
+        - "Expeditor: Skip All"
+  - trigger_pipeline:omnibus/release:
+      ignore_labels:
+        - "Expeditor: Skip Omnibus"
+        - "Expeditor: Skip All"
+      only_if: built_in:bump_version
+
+# Subscription to workload action of pull request merge to master branch on
+# omnibus-software project will allow us to trigger an uncached omnibus build
+# for omnibus-toolchain and angry-omnibus-toolchain when the omnibus-software
+# has modified software config files.
+subscriptions:
+  - workload: artifact_published:stable:omnibus-toolchain:*
+    actions:
+      - built_in:notify_chefio_slack_channels
