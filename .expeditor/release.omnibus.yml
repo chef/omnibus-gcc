@@ -1,6 +1,8 @@
 ---
 project-name: omnibus-gcc
 config: omnibus.rb
+install-dir: /opt/omnibus-gcc
+test-path: omnibus-test.sh
 builder-to-testers-map:
   el-6-x86_64:
     - el-6-x86_64
