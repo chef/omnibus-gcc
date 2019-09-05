@@ -36,7 +36,7 @@ merge_actions:
       only_if: built_in:bump_version
 
 subscriptions:
-  - workload: artifact_published:stable:omnibus-toolchain:*
+  - workload: artifact_published:stable:omnibus-gcc:*
     actions:
       - built_in:rollover_changelog
       - built_in:notify_chefio_slack_channels
