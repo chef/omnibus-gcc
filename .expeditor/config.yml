@@ -4,6 +4,9 @@
 project:
   alias: omnibus-gcc
 
+product_key:
+  - omnibus-gcc
+
 # Slack channel in Chef Software slack to send notifications about build failures, etc
 slack:
   notify_channel:
@@ -32,11 +35,8 @@ merge_actions:
         - "Expeditor: Skip All"
       only_if: built_in:bump_version
 
-# Subscription to workload action of pull request merge to master branch on
-# omnibus-software project will allow us to trigger an uncached omnibus build
-# for omnibus-toolchain and angry-omnibus-toolchain when the omnibus-software
-# has modified software config files.
 subscriptions:
-  - workload: artifact_published:stable:omnibus-toolchain:*
+  - workload: artifact_published:stable:omnibus-gcc:*
     actions:
+      - built_in:rollover_changelog
       - built_in:notify_chefio_slack_channels
