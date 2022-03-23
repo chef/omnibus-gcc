@@ -1,3 +1,18 @@
+# DEPRECATED
+
+This project is no longer needed. The following is a better way to provide a usable gcc to a RHEL 6 system.
+
+```
+# Enable SCL Repository
+sudo yum-config-manager --enable rhui-REGION-rhel-server-rhscl
+
+# Install RHEL7 Dev Toolset
+sudo yum install -y devtoolset-7
+
+# Enable devtoolset for all users
+echo 'source /opt/rh/devtoolset-7/enable' | sudo tee /etc/profile.d/devtoolset-7.sh
+```
+
 # GCC Omnibus project
 
 This project creates an omnibus package for GCC, which is targeted exclusively for the EL6 platform, since it has a very old version of GCC, which causes issues on some modern software. (Specifically software that requires the C++11 and later standards)
